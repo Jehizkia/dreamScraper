@@ -1,4 +1,5 @@
 from DreamCatcher import DreamCatcher
+import database
 
 url = 'http://indreams.me'
 parameter = '/?sort=mostliked'
