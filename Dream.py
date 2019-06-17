@@ -1,5 +1,6 @@
 import requests
 import helper
+from database import Dream as dbDream
 
 
 class Dream:
@@ -14,6 +15,7 @@ class Dream:
         self.get_initial_meta_data()
         self.retrieve_dream_page()
         self.extract_dream_info()
+        self.save_dream()
 
     def get_initial_meta_data(self):
         page_href = self.dream_preview.find('div', attrs={'class': 'bc__link'}).contents[0]
@@ -36,12 +38,11 @@ class Dream:
         description_tag = self.dream_page.find('h2', attrs={'class': 'profile__subtitle'})
         if description_tag is not None:
             self.meta['description'] = description_tag.get_text()
+        else:
+            self.meta['description'] = ''
             print(f"extracted description: {self.meta['description']}")
 
     def extract_tags(self):
-        pass
-
-    def extract_played(self):
         pass
 
     def extract_played_times(self):
@@ -83,3 +84,17 @@ class Dream:
         self.extract_description()
         self.extract_played_times()
         self.extract_thumbs_up()
+
+    def save_dream(self):
+        new_db_dream = dbDream(
+            title=self.meta['title'],
+            description=self.meta['description'],
+            author=self.meta['author'],
+            played_time=self.meta['played_times'],
+            played_times_by=self.meta['played_times_by'],
+            thumbs_up=self.meta['thumbs_up'],
+            category=self.meta['category']
+        )
+
+        new_db_dream.save()
+        print(f"Dream {self.meta['title']} saved to db")

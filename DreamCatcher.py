@@ -36,6 +36,13 @@ class DreamCatcher:
     def get_meta_data_of_dreams(self, dreams) -> list:
         scraped_dreams = []
         for dream in dreams:
-            scraped_dreams.append(Dream(dream, self.cookies, self.url))
+            scraped_dream = Dream(dream, self.cookies, self.url)
+
+            if scraped_dream.meta['category'] == "collection":
+                print('Inception')
+            else:
+                scraped_dreams.append(scraped_dream)
+
+            # TODO finish inception function when coming across a collection
             print()
         return scraped_dreams

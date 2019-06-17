@@ -9,7 +9,13 @@ class BaseModel(Model):
 
 
 class Dream(BaseModel):
-    name = CharField(unique=True)
+    title = CharField()
+    description = TextField()
+    category = CharField()
+    played_time = IntegerField()
+    played_times_by = IntegerField()
+    thumbs_up = IntegerField()
+    author = CharField()
 
 
 db.connect()

@@ -2,3 +2,5 @@ pycookiecheat
 requests
 beautifulsoup4
 peewee
+mysql-connector-python
+pymysql==0.9.3
